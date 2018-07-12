@@ -21,7 +21,6 @@ import org.apache.logging.log4j.Logger;
 import org.rait.proekspert.model.Words;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -84,10 +83,9 @@ public class Main extends Application {
             logger.warn(e.getMessage());
         }
 
-        String[] words = content.split("[^\\w']+");
+        String[] words =    content.split("[^\\w']+");
 
         for (String word : words){
-            int wordSize = word.length();
             int desiredSize = 4;
 
             for (int i = word.length(); i >= desiredSize; i--) {
@@ -149,9 +147,9 @@ public class Main extends Application {
                                         Map.Entry::getKey, Map.Entry::getValue,(oldValue, newValue) -> oldValue, LinkedHashMap::new)
                 );
 
-        sortedCounters.forEach((k,v) -> {
-            data.add(new Words(k,v,getPercentage(listSize,v)));
-        });
+        sortedCounters.forEach((k,v) ->
+            data.add(new Words(k,v,getPercentage(listSize,v)))
+        );
 
         word.setCellValueFactory(
                 new PropertyValueFactory<Words,String>("word")
